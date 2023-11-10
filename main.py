@@ -1,6 +1,11 @@
+# Nome do arquivo para armazenar os registros
+DATABASE_FILE = "database.txt"
+
+
 # Função para criar um novo registro
 def create_record(data, record):
     data.append(record)
+    save_to_file(data)
     print("Registro adicionado com sucesso!")
 
 
@@ -22,6 +27,7 @@ def read_records(data):
 def update_record(data, record_id, new_record):
     if 0 <= record_id < len(data):
         data[record_id] = new_record
+        save_to_file(data)
         print("Registro atualizado com sucesso!")
     else:
         print("ID de registro inválido.")
@@ -31,19 +37,40 @@ def update_record(data, record_id, new_record):
 def delete_record(data, record_id):
     if 0 <= record_id < len(data):
         deleted_record = data.pop(record_id)
+        save_to_file(data)
         print(f"Registro excluído com sucesso: {deleted_record}")
     else:
         print("ID de registro inválido.")
 
 
+# Função para salvar os registros em um arquivo
+def save_to_file(data):
+    with open(DATABASE_FILE, "w") as file:
+        for record in data:
+            file.write(record + "\n")
+
+
+# Função para ler os registros de um arquivo
+def load_from_file():
+    data = []
+    try:
+        with open(DATABASE_FILE, "r") as file:
+            data = [line.strip() for line in file]
+    except FileNotFoundError:
+        print(f"Arquivo '{DATABASE_FILE}' não encontrado.")
+    except EOFError:
+        print("Erro ao ler o arquivo: End of File (EOF) alcançado.")
+    return data
+
+
 # Função principal
 def main():
-    database = []
+    database = load_from_file()
 
     while True:
         print("\nOpções:")
         print("1. Adicionar Registro")
-        print("2. Exibir Registros (ordenados por preço de universidade)")
+        print("2. Exibir Registros (ordenados por preço)")
         print("3. Atualizar Registro")
         print("4. Excluir Registro")
         print("5. Sair")
