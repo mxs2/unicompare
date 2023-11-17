@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-<a href="docs/README_EN.md">English</a> | <a href="README.md">Portuguese</a>
+<a href="docs/README_EN.md">English</a> | <a href="../README.md">Portuguese</a>
 </p>
 
 
