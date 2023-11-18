@@ -56,6 +56,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Backlog
 - [x] Do first prototype tests
 - [ ] Do interviews 
-- [ ] Fix database.txt empty line error 
-- [ ] Fix database.txt Y variable error
+- [x] Fix database.txt empty line error 
+- [x] Fix database.txt Y variable error
 - [ ] Add more data to database.txt 
