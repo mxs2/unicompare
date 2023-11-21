@@ -23,7 +23,7 @@ def create_record(data, record):
     print("Registro adicionado com sucesso!")
 
 
-# Função para exibir todos os registros
+# Função para exibir todos os registros ordenados por preço
 def read_records(data):
     if not data:
         print("Nenhum registro encontrado.")
@@ -31,7 +31,8 @@ def read_records(data):
         print("\nRegistros:")
         print("{:<5} {:<20} {:<10}".format("ID", "Nome", "Preço"))
         print("-" * 40)
-        for i, record in enumerate(data):
+        sorted_data = sorted(data, key=lambda x: float(x.split(",")[1]))
+        for i, record in enumerate(sorted_data):
             name, price = record.split(",")
             print("{:<5} {:<20} {:<10}".format(i, name, price))
 
@@ -63,36 +64,35 @@ def save_to_file(data):
             file.write(record + "\n")
 
 
-# Função para ler os registros de um arquivo e retornar ordenado por preço
-def load_from_file_sorted():
+# Função para ler os registros de um arquivo
+def load_from_file():
     data = []
     try:
         with open(DATABASE_FILE, "r", encoding="utf-8") as file:
             for line in file:
                 line = line.strip()
-                if line:
+                if (
+                    line
+                ):  # Verifica se a linha não está em branco antes de adicionar aos dados
                     data.append(line)
     except FileNotFoundError:
         print(f"Arquivo '{DATABASE_FILE}' não encontrado.")
     except EOFError:
         print("Erro ao ler o arquivo: End of File (EOF) alcançado.")
-
-    if data:
-        return sorted(data, key=lambda x: float(x.split(",")[1]))
     return data
 
 
 # Função principal
 def main():
-    database = load_from_file_sorted()
+    database = load_from_file()
 
     while True:
         print("\nOpções:")
         print("1. Adicionar Registro")
-        print("2. Exibir Registros")
-        print("3. Atualizar Registro")
-        print("4. Excluir Registro")
-        print("5. Sair")
+        print("2. Exibir Registros (ordenados por preço)")
+        # print("3. Atualizar Registro")
+        # print("4. Excluir Registro")
+        print("3. Sair")
 
         choice = input("Escolha uma opção: ")
 
@@ -101,14 +101,14 @@ def main():
             create_record(database, record)
         elif choice == "2":
             read_records(database)
+        # elif choice == "3":
+        #     record_id = int(input("Digite o ID do registro a ser atualizado: "))
+        #     new_record = input("Digite o novo registro (nome, preço): ")
+        #     update_record(database, record_id, new_record)
+        # elif choice == "4":
+        #     record_id = int(input("Digite o ID do registro a ser excluído: "))
+        #     delete_record(database, record_id)
         elif choice == "3":
-            record_id = int(input("Digite o ID do registro a ser atualizado: "))
-            new_record = input("Digite o novo registro (nome, preço): ")
-            update_record(database, record_id, new_record)
-        elif choice == "4":
-            record_id = int(input("Digite o ID do registro a ser excluído: "))
-            delete_record(database, record_id)
-        elif choice == "5":
             print("Saindo do programa.")
             break
         else:
