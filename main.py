@@ -5,19 +5,19 @@ DATABASE_FILE = "database.txt"
 # Função para criar um novo registro
 def create_record(data, record):
     record_data = record.split(",")
-    
+
     # Verifica se a entrada contém dois elementos separados por vírgula
-    if len(record_data) != 2 or not record_data[1].strip():  
+    if len(record_data) != 2 or not record_data[1].strip():
         print("Formato de entrada inválido. Use o formato 'nome, preço'.")
         return
-    
+
     # Tenta converter o segundo elemento para um número decimal (preço)
     try:
         float(record_data[1].strip())
     except ValueError:
         print("O preço deve ser um número válido.")
         return
-    
+
     data.append(record)
     save_to_file(data)
     print("Registro adicionado com sucesso!")
@@ -59,7 +59,7 @@ def delete_record(data, record_id):
 
 # Função para salvar os registros em um arquivo
 def save_to_file(data):
-    with open(DATABASE_FILE, "w") as file:
+    with open(DATABASE_FILE, "w", encoding="utf-8") as file:
         for record in data:
             file.write(record + "\n")
 
@@ -68,10 +68,12 @@ def save_to_file(data):
 def load_from_file():
     data = []
     try:
-        with open(DATABASE_FILE, "r") as file:
+        with open(DATABASE_FILE, "r", encoding="utf-8") as file:
             for line in file:
                 line = line.strip()
-                if line:  # Verifica se a linha não está em branco antes de adicionar aos dados
+                if (
+                    line
+                ):  # Verifica se a linha não está em branco antes de adicionar aos dados
                     data.append(line)
     except FileNotFoundError:
         print(f"Arquivo '{DATABASE_FILE}' não encontrado.")
