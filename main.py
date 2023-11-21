@@ -23,7 +23,7 @@ def create_record(data, record):
     print("Registro adicionado com sucesso!")
 
 
-# Função para exibir todos os registros ordenados por preço
+# Função para exibir todos os registros
 def read_records(data):
     if not data:
         print("Nenhum registro encontrado.")
@@ -31,8 +31,7 @@ def read_records(data):
         print("\nRegistros:")
         print("{:<5} {:<20} {:<10}".format("ID", "Nome", "Preço"))
         print("-" * 40)
-        sorted_data = sorted(data, key=lambda x: float(x.split(",")[1]))
-        for i, record in enumerate(sorted_data):
+        for i, record in enumerate(data):
             name, price = record.split(",")
             print("{:<5} {:<20} {:<10}".format(i, name, price))
 
@@ -64,32 +63,33 @@ def save_to_file(data):
             file.write(record + "\n")
 
 
-# Função para ler os registros de um arquivo
-def load_from_file():
+# Função para ler os registros de um arquivo e retornar ordenado por preço
+def load_from_file_sorted():
     data = []
     try:
         with open(DATABASE_FILE, "r", encoding="utf-8") as file:
             for line in file:
                 line = line.strip()
-                if (
-                    line
-                ):  # Verifica se a linha não está em branco antes de adicionar aos dados
+                if line:
                     data.append(line)
     except FileNotFoundError:
         print(f"Arquivo '{DATABASE_FILE}' não encontrado.")
     except EOFError:
         print("Erro ao ler o arquivo: End of File (EOF) alcançado.")
+
+    if data:
+        return sorted(data, key=lambda x: float(x.split(",")[1]))
     return data
 
 
 # Função principal
 def main():
-    database = load_from_file()
+    database = load_from_file_sorted()
 
     while True:
         print("\nOpções:")
         print("1. Adicionar Registro")
-        print("2. Exibir Registros (ordenados por preço)")
+        print("2. Exibir Registros")
         print("3. Atualizar Registro")
         print("4. Excluir Registro")
         print("5. Sair")
