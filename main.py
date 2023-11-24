@@ -59,9 +59,10 @@ def delete_record(data, record_id):
 
 # Função para salvar os registros em um arquivo
 def save_to_file(data):
+    sorted_data = sorted(data, key=lambda x: float(x.split(",")[1]))
+
     with open(DATABASE_FILE, "w", encoding="utf-8") as file:
-        for record in data:
-            file.write(record + "\n")
+        file.write("\n".join(sorted_data))
 
 
 # Função para ler os registros de um arquivo
@@ -90,25 +91,38 @@ def main():
         print("\nOpções:")
         print("1. Adicionar Registro")
         print("2. Exibir Registros (ordenados por preço)")
-        # print("3. Atualizar Registro")
-        # print("4. Excluir Registro")
-        print("3. Sair")
+        print("3. Atualizar Registro")
+        print("4. Excluir Registro")
+        print("5. Sair")
 
         choice = input("Escolha uma opção: ")
 
         if choice == "1":
             record = input("Digite o novo registro (nome, preço): ")
             create_record(database, record)
+            database = load_from_file()
         elif choice == "2":
             read_records(database)
-        # elif choice == "3":
-        #     record_id = int(input("Digite o ID do registro a ser atualizado: "))
-        #     new_record = input("Digite o novo registro (nome, preço): ")
-        #     update_record(database, record_id, new_record)
-        # elif choice == "4":
-        #     record_id = int(input("Digite o ID do registro a ser excluído: "))
-        #     delete_record(database, record_id)
         elif choice == "3":
+            try:
+                record_id = int(input("Digite o ID do registro a ser atualizado: "))
+                new_record = input("Digite o novo registro (nome, preço): ")
+                update_record(database, record_id, new_record)
+                database = load_from_file()
+            except ValueError:
+                print(
+                    "ID de registro inválido. Certifique-se de inserir um número válido."
+                )
+        elif choice == "4":
+            try:
+                record_id = int(input("Digite o ID do registro a ser excluído: "))
+                delete_record(database, record_id)
+            except ValueError:
+                print(
+                    "ID de registro inválido. Certifique-se de inserir um número válido."
+                )
+                database = load_from_file()
+        elif choice == "5":
             print("Saindo do programa.")
             break
         else:

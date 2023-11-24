@@ -1,4 +1,3 @@
-UNIP, 90
 UniFavip Wyden, 109
 UNIFAEL, 139
 UNIFACVEST, 179
