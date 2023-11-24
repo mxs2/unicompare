@@ -80,7 +80,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Backlog
 
 - [x] Do first prototype tests
-- [ ] Do interviews
+- [x] Do interviews
 - [x] Fix database.txt empty line error
 - [x] Fix database.txt Y variable error
 - [x] Add more data to database.txt
