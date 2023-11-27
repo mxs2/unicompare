@@ -1,6 +1,6 @@
 import sqlite3
 import os
-import time
+import time 
 
 DATABASE_FILE = "instituicoes.db"
 
@@ -9,10 +9,10 @@ DATABASE_FILE = "instituicoes.db"
 def clear_screen():
     if os.name == "nt":
         os.system("cls")
-        time.sleep(1)
+        time.sleep(0.5)
     else:
         os.system("clear")
-        time.sleep(1)
+        time.sleep(0.5)
 
 
 # Lê registros do banco de dados
@@ -30,7 +30,7 @@ def read_records_from_db():
 # Exibe os registros com uma pausa para melhor visualização
 def print_records(records):
     clear_screen()
-    time.sleep(1)
+    time.sleep(0.5)
     if not records:
         print("Nenhum registro encontrado.")
     else:
@@ -49,7 +49,7 @@ def print_records(records):
 # Avalia uma instituição
 def evaluate_institution():
     clear_screen()
-    time.sleep(1)
+    time.sleep(0.5)
     print_records(read_records_from_db())
     try:
         record_id = int(input("Digite o ID da instituição que deseja avaliar: "))
@@ -83,7 +83,7 @@ def evaluate_institution():
 # Adiciona uma nova instituição
 def add_institution():
     clear_screen()
-    time.sleep(1)
+    time.sleep(0.5)
     print_records(read_records_from_db())
     try:
         name = input("Digite o nome da nova instituição: ")
@@ -116,7 +116,7 @@ def add_institution():
 # Atualiza uma instituição
 def update_institution():
     clear_screen()
-    time.sleep(1)
+    time.sleep(0.5)
     print_records(read_records_from_db())
     try:
         record_id = int(input("Digite o ID da instituição que deseja atualizar: "))
@@ -161,7 +161,7 @@ def update_institution():
 # Deleta uma instituição
 def delete_institution():
     clear_screen()
-    time.sleep(1)
+    time.sleep(0.5)
     print_records(read_records_from_db())
     try:
         record_id = int(input("Digite o ID da instituição que deseja excluir: "))
@@ -207,10 +207,11 @@ def print_ascii_pattern():
 def main():
     while True:
         clear_screen()
+        time.sleep(0.5)
         print_ascii_pattern()
-        time.sleep(1)
+        time.sleep(0.5)
         print("Opções:")
-        print("1. Adicionar Registro")
+        print("1. Adicionar Registro ")
         print("2. Exibir Registros (ordenados por preço)")
         print("3. Atualizar Registro")
         print("4. Excluir Registro")
@@ -221,24 +222,24 @@ def main():
 
         if choice == "1":
             add_institution()
-            time.sleep(1)
+            time.sleep(0.5)
         elif choice == "2":
             print_records(read_records_from_db())
-            time.sleep(1)
+            time.sleep(0.5)
         elif choice == "3":
             update_institution()
-            time.sleep(1)
+            time.sleep(0.5)
         elif choice == "4":
             delete_institution()
-            time.sleep(1)
+            time.sleep(0.5)
         elif choice == "5":
-            time.sleep(1)
+            time.sleep(0.5)
             print("Saindo do programa.")
             time.sleep(2)
             break
         elif choice == "6":
             evaluate_institution()
-            time.sleep(1)
+            time.sleep(0.5)
         else:
             print("Opção inválida. Tente novamente.")
             input("Pressione Enter para continuar...")
