@@ -1,6 +1,6 @@
 import sqlite3
 import os
-import time 
+import time
 
 DATABASE_FILE = "instituicoes.db"
 
@@ -131,18 +131,19 @@ def update_institution():
                 "UPDATE instituicoes SET nome = ? WHERE id = ?",
                 (new_name, record_id),
             )
+            print("Nome atualizado com sucesso!")
         elif field_to_update == "preco":
             new_price = float(input("Digite o novo preço: "))
             cursor.execute(
                 "UPDATE instituicoes SET preco = ? WHERE id = ?",
                 (new_price, record_id),
             )
+            print("Preço atualizado com sucesso!")
         else:
             print("Campo inválido.")
 
         conn.commit()
         conn.close()
-        print("Registro atualizado com sucesso!")
     except ValueError:
         print("ID inválido ou valor incorreto inserido.")
     except sqlite3.OperationalError:
